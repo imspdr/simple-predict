@@ -1,0 +1,2 @@
+# simplePredict
+timeseries + sentimental analysis
