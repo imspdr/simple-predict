@@ -1,0 +1,9 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: custom-transformer
+spec:
+  predictor:
+    containers:
+      - name: kserve-container
+        image: konglsh96/kserve_practice:textscore
