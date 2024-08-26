@@ -17,5 +17,5 @@ result = decoded_output.strip()
 
 print('RESULT >>', result)
 
-sentiment_pipeline = pipeline("sentiment-analysis")
-print(sentiment_pipeline([result]))
+classifier = pipeline("text-classification", model="matthewburke/korean_sentiment")
+print(classifier([result]))

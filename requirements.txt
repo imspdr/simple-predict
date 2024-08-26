@@ -1,0 +1,7 @@
+kserve==0.10.2
+pandas==2.2.1
+torch==2.2.2
+numpy==1.26.4
+prophet==1.1.5
+torch==2.2.2
+transformers==4.39.3
