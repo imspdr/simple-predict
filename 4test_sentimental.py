@@ -1,13 +1,5 @@
-import ssl
-
-from requests.exceptions import SSLError
-from transformers import pipeline
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
-'''
-기사 크롤링 
-'''
 import requests
+from transformers import pipeline
 from bs4 import BeautifulSoup
 
 search_name = "삼성전자"
