@@ -1,23 +1,23 @@
-import { useState } from "react";
+import { observer } from "mobx-react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import kospi200 from "../../../kospi200.json";
+import { useRootStore } from "@src/store/RootStoreProvider";
 
-type stock = {
-  code: string;
-  name: string;
-};
-
-export default function SelectStock() {
-  const [stock, nowStock] = useState<stock | null>(null);
-
+function SelectStock() {
+  const rootStore = useRootStore();
   return (
     <Autocomplete
       disablePortal
-      id="combo-box-demo"
-      options={kospi200}
+      options={rootStore.kospi200.map((stock) => {
+        return {
+          label: stock.name,
+          id: Number(stock.code),
+        };
+      })}
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="종목" />}
     />
   );
 }
+
+export default observer(SelectStock);

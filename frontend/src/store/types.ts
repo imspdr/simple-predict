@@ -1,3 +1,8 @@
+export type Stock = {
+  code: string;
+  name: string;
+};
+
 export type SentimentalData = {
   title: string;
   score: number;
@@ -9,9 +14,7 @@ export type TimeseriesData = {
   predicted: string;
 };
 
-export type StockData = {
-  name: string;
-  code: string;
+export type StockData = Stock & {
   timeseriesDatas: TimeseriesData[];
   sentimentalDatas: SentimentalData[];
 };
