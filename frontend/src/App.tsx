@@ -1,8 +1,6 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import ThemeToggle from "./common/ThemeToggle";
 import { css } from "@emotion/react";
-import { unselectable } from "./common/util";
+import SelectStock from "./components/searchGNB/SelectStock";
 
 function App() {
   const navigate = useNavigate();
@@ -20,19 +18,7 @@ function App() {
           align-items: center;
         `}
       >
-        <div
-          onClick={() => {
-            navigate("/");
-          }}
-          css={css`
-            display: flex;
-            flex-direction: row;
-            ${unselectable}
-          `}
-        >
-          {`IMSPDR - simplePredict`}
-        </div>
-        <ThemeToggle />
+        <SelectStock />
       </div>
       <div
         css={css`
