@@ -18,6 +18,10 @@ export type StockData = Stock & {
   timeseriesDatas: {
     given: TimeseriesData[];
     predicted: TimeseriesData[];
+    status: string;
   };
-  sentimentalDatas: SentimentalData[];
+  sentimentalDatas: {
+    data: SentimentalData[];
+    status: string;
+  };
 };

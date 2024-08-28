@@ -30,7 +30,7 @@ function App() {
       />
       {selectedData && (
         <>
-          <SentimentList givenData={selectedData.sentimentalDatas} />
+          <SentimentList givenData={selectedData.sentimentalDatas.data} />
           <TimeseriesChart
             givenData={selectedData.timeseriesDatas.given}
             predictionData={selectedData.timeseriesDatas.predicted}
