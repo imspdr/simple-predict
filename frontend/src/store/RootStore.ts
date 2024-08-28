@@ -33,4 +33,6 @@ export class RootStore {
       this.__cacheData = [];
     });
   };
+
+  getNewData = ()
 }

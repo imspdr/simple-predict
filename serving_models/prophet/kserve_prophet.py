@@ -76,7 +76,7 @@ class CustomProphet(kserve.Model):
         '''
         params = try_or_default(payload, "params", {})
 
-        do_predict = params = try_or_default(params, "do_predict", 1)
+        do_predict = try_or_default(params, "do_predict", 1)
         periods = try_or_default(params, "periods", 20)
         code = try_or_default(params, "code", "005930")
 
