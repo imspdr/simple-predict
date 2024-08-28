@@ -6,15 +6,18 @@ export type Stock = {
 export type SentimentalData = {
   title: string;
   score: number;
+  link: string;
 };
 
 export type TimeseriesData = {
   ds: string;
   y: number;
-  predicted: string;
 };
 
 export type StockData = Stock & {
-  timeseriesDatas: TimeseriesData[];
+  timeseriesDatas: {
+    given: TimeseriesData[];
+    predicted: TimeseriesData[];
+  };
   sentimentalDatas: SentimentalData[];
 };

@@ -68,9 +68,11 @@ class CustomTransformer(kserve.Model):
                 try:
                     title = str(news).split("title=\"")[1].split("\">")[0].replace("&quot;", "\'")
                     score = self.model(title, return_all_scores=True)[0][1]["score"]
+                    news_link = str(news).split("href=\"")[1].split("\"")[0].replace("amp;", "")
                     predictions.append({
                         "title": title,
-                        "score": score
+                        "score": score,
+                        "link": news_link
                     })
                 except (TypeError, IndexError):
                     continue

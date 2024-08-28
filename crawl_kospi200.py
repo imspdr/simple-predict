@@ -20,5 +20,5 @@ for i in range(20):
         except TypeError:
             continue
 
-with open("frontend/kospi200.json", "w", encoding="utf-8") as result_file:
+with open("frontend/src/store/kospi200.json", "w", encoding="utf-8") as result_file:
     json.dump(return_list, result_file, ensure_ascii=False)

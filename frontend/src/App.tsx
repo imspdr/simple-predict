@@ -1,36 +1,43 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
-import SelectStock from "./components/searchGNB/SelectStock";
-import { RootStoreProvider } from "./store/RootStoreProvider";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import TimeseriesChart from "./components/TimeseriesChart";
+import { useRootStore } from "@src/store/RootStoreProvider";
+import SentimentList from "./components/SentimentList";
 
 function App() {
+  const rootStore = useRootStore();
+  const selectedData = rootStore.cacheData.find((datas) => datas.code === rootStore.selectedCode);
   return (
-    <RootStoreProvider>
-      <div>
-        <div
-          css={css`
-            position: absolute;
-            top: 0px;
-            width: calc(99vw);
-            height: 64px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-          `}
-        >
-          <SelectStock />
-        </div>
-        <div
-          css={css`
-            margin-top: 64px;
-            height: calc(99vh - 64px);
-          `}
-        >
-          MAIN
-        </div>
-      </div>
-    </RootStoreProvider>
+    <div
+      css={css`
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      `}
+    >
+      <Autocomplete
+        disablePortal
+        options={rootStore.kospi200.map((stock) => {
+          return {
+            label: stock.name,
+            id: Number(stock.code),
+          };
+        })}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="종목" />}
+      />
+      {selectedData && (
+        <>
+          <SentimentList givenData={selectedData.sentimentalDatas} />
+          <TimeseriesChart
+            givenData={selectedData.timeseriesDatas.given}
+            predictionData={selectedData.timeseriesDatas.predicted}
+          />
+        </>
+      )}
+    </div>
   );
 }
 

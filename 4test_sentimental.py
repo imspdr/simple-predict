@@ -18,6 +18,6 @@ for news in newss:
         title = str(news).split("title=\"")[1].split("\">")[0].replace("&quot;", "\'")
         news_link = str(news).split("href=\"")[1].split("\"")[0].replace("amp;", "")
         print(title)
-        print(classifier(title, return_all_scores=True)[0][1])
+        print(classifier(title, return_all_scores=True))
     except (TypeError, IndexError):
         continue
