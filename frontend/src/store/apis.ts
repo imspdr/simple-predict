@@ -1,5 +1,8 @@
 import axios from "axios";
 import { TimeseriesData, SentimentalData } from "./types";
+import inputDataSample from "./inputDataSample.json";
+import predictionSample from "./predictionSample.json";
+import sentimentalSample from "./sentimentalSample.json";
 
 const timeseriesURL = "";
 const sentimentURL = "";

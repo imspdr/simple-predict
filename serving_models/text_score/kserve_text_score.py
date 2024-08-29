@@ -37,7 +37,7 @@ class NpEncoder(json.JSONEncoder):
         else:
             return super(NpEncoder, self).default(obj)
 
-class CustomTransformer(kserve.Model):
+class CustomTextScore(kserve.Model):
     def __init__(self, name: str):
         super().__init__(name)
         self.ready = False
@@ -46,7 +46,6 @@ class CustomTransformer(kserve.Model):
 
     def load(self) -> bool:
         logging.info(f"use predefined text scoring model")
-
         self.model = pipeline("text-classification", model="matthewburke/korean_sentiment")
         self.ready = True
         return self.ready
@@ -88,5 +87,5 @@ class CustomTransformer(kserve.Model):
             }
 
 if __name__ == "__main__":
-    model = CustomTransformer("custom-transformer")
+    model = CustomTextScore("custom-text-score")
     kserve.ModelServer().start([model])
