@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-predict-front-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-predict-front
+  template:
+    metadata:
+      labels:
+        app: simple-predict-front
+    spec:
+      containers:
+        - name: simple-predict-front
+          image: konglsh96/kserve_practice:front
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "1000m"
+          env:
+            - name: ISTIO_IP
+              value: "192.168.99.100"
+            - name: ISTIO_PORT
+              value: "31380"
+            - name: uri
+              value: "$uri"
+            - name: kserve_host
+              value: "$kserve_host"

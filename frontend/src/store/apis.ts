@@ -4,19 +4,22 @@ import inputDataSample from "./inputDataSample.json";
 import predictionSample from "./predictionSample.json";
 import sentimentalSample from "./sentimentalSample.json";
 
-const timeseriesURL = "";
-const sentimentURL = "";
+const timeseriesURL = "/api/v1/models/custom-prophet:predict";
+const timeseriesHost = "custom-prophet.default.example.com";
+
+const sentimentURL = "/api/v1/models/custom-text-score:predict";
+const sentimentHost = "custom-text-score.default.example.com";
 
 export const predictAPI = {
   getInputData: async (code: string) => {
-    // const ret = await axios({
-    //   method: "get",
-    //   url: timeseriesURL,
-    // })
-    //   .then((data: any) => {
-    //     return data.data;
-    //   })
-    //   .catch((e) => undefined);
+    const ret = await axios({
+      method: "post",
+      url: timeseriesURL,
+    })
+      .then((data: any) => {
+        return data.data;
+      })
+      .catch((e) => undefined);
 
     return inputDataSample.predictions as TimeseriesData[];
   },

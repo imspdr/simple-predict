@@ -73,12 +73,6 @@ module.exports = (env) => {
       ],
     },
     devServer: {
-      proxy: {
-        "/back": {
-          target: "http://localhost:5000",
-          pathRewrite: { "/back": "" },
-        },
-      },
       historyApiFallback: true,
       host: "localhost",
       port: 4545,
