@@ -1,11 +1,11 @@
 import { ResponsiveLine, Serie } from "@nivo/line";
-import { TimeseriesData } from "@src/store/types";
+import { PredictionData, TimeseriesData } from "@src/store/types";
 
 export default function TimeseriesChart(props: {
   width?: number | string;
   height?: number | string;
   givenData: TimeseriesData[];
-  predictionData?: TimeseriesData[];
+  predictionData?: PredictionData[];
 }) {
   const predictionData = props.predictionData ? props.predictionData : [];
   const colors = [
@@ -30,7 +30,7 @@ export default function TimeseriesChart(props: {
             {
               id: "given",
               color: "hsl(230, 70%, 50%)",
-              data: props.givenData.map((dot: any, index: number) => {
+              data: props.givenData.map((dot: TimeseriesData, index: number) => {
                 return {
                   x: index,
                   y: dot.y,
@@ -40,40 +40,40 @@ export default function TimeseriesChart(props: {
             {
               id: "predicted",
               color: "hsl(201, 70%, 50%)",
-              data: predictionData.map((dot: any, index: number) => {
+              data: predictionData.map((dot: PredictionData, index: number) => {
                 return {
                   x: index + props.givenData.length,
-                  y: JSON.parse(dot.result).yhat,
+                  y: dot.yhat,
                 };
               }),
             },
             {
               id: "predicted_upper",
               color: "hsl(201, 70%, 50%, 0.05)",
-              data: predictionData.map((dot: any, index: number) => {
+              data: predictionData.map((dot: PredictionData, index: number) => {
                 return {
                   x: index + props.givenData.length,
-                  y: JSON.parse(dot.result).yhat_upper,
+                  y: dot.yhat_upper,
                 };
               }),
             },
             {
               id: "predicted_lower",
               color: "hsl(201, 70%, 50%, 0.05)",
-              data: predictionData.map((dot: any, index: number) => {
+              data: predictionData.map((dot: PredictionData, index: number) => {
                 return {
                   x: index + props.givenData.length,
-                  y: JSON.parse(dot.result).yhat_lower,
+                  y: dot.yhat_lower,
                 };
               }),
             },
             {
               id: "trend",
               color: "hsl(265, 70%, 50%, 0.05)",
-              data: predictionData.map((dot: any, index: number) => {
+              data: predictionData.map((dot: PredictionData, index: number) => {
                 return {
                   x: index + props.givenData.length,
-                  y: JSON.parse(dot.result).trend,
+                  y: dot.trend,
                 };
               }),
             },

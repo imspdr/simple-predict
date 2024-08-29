@@ -14,10 +14,18 @@ export type TimeseriesData = {
   y: number;
 };
 
+export type PredictionData = {
+  ds: string;
+  yhat: number;
+  yhat_lower: number;
+  yhat_upper: number;
+  trend: number;
+};
+
 export type StockData = Stock & {
   timeseriesDatas: {
     given: TimeseriesData[];
-    predicted: TimeseriesData[];
+    predicted: PredictionData[];
     status: string;
   };
   sentimentalDatas: {

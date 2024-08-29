@@ -1,6 +1,7 @@
 import { runInAction, makeAutoObservable } from "mobx";
 import { Stock, StockData } from "./types";
 import kospi200 from "./kospi200.json";
+import { predictAPI } from "./apis";
 
 export class RootStore {
   private __selectedCode: string | undefined;
@@ -22,10 +23,28 @@ export class RootStore {
   }
   set selectedCode(given: string | undefined) {
     this.__selectedCode = given;
+    console.log(given);
+    if (given) {
+      const useCache = this.cacheData.find((stock) => stock.code === given);
+      if (useCache) return;
+      else {
+        this.getNewData(given);
+      }
+    }
+  }
+  set cacheData(given: StockData[]) {
+    this.__cacheData = given;
   }
   appendCache = (given: StockData) => {
-    runInAction(() => {
-      this.__cacheData = [given, ...this.cacheData];
+    this.cacheData = [given, ...this.cacheData];
+  };
+  updateCache = (given: StockData) => {
+    this.cacheData = this.cacheData.map((stockData: StockData) => {
+      if (stockData.code === given.code) {
+        return given;
+      } else {
+        return stockData;
+      }
     });
   };
   emptyCache = () => {
@@ -34,5 +53,64 @@ export class RootStore {
     });
   };
 
-  getNewData = ()
+  getNewData = async (code: string) => {
+    const stock: Stock | undefined = this.kospi200.find((stock) => stock.code === code);
+    if (!!!stock) return;
+
+    this.appendCache({
+      code: code,
+      name: stock.name,
+      timeseriesDatas: {
+        given: [],
+        predicted: [],
+        status: "loading",
+      },
+      sentimentalDatas: {
+        data: [],
+        status: "loading",
+      },
+    });
+    const sentimentData = await predictAPI.getSentiment(stock.name);
+    this.updateCache({
+      code: code,
+      name: stock.name,
+      timeseriesDatas: {
+        given: [],
+        predicted: [],
+        status: "loading",
+      },
+      sentimentalDatas: {
+        data: sentimentData,
+        status: "success",
+      },
+    });
+    const inputData = await predictAPI.getInputData(code);
+    this.updateCache({
+      code: code,
+      name: stock.name,
+      timeseriesDatas: {
+        given: inputData,
+        predicted: [],
+        status: "success",
+      },
+      sentimentalDatas: {
+        data: sentimentData,
+        status: "success",
+      },
+    });
+    const predictionData = await predictAPI.getPrediction(inputData);
+    this.updateCache({
+      code: code,
+      name: stock.name,
+      timeseriesDatas: {
+        given: inputData,
+        predicted: predictionData,
+        status: "success",
+      },
+      sentimentalDatas: {
+        data: sentimentData,
+        status: "success",
+      },
+    });
+  };
 }
