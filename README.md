@@ -1,6 +1,5 @@
 # simplePredict
 
----
 ## Structure
 
 ![Structure](/res/simplepredict.png)
