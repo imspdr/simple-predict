@@ -12,39 +12,83 @@ const sentimentHost = "custom-text-score.default.example.com";
 
 export const predictAPI = {
   getInputData: async (code: string) => {
-    const ret = await axios({
-      method: "post",
-      url: timeseriesURL,
-    })
+    const ret = await axios
+      .post(
+        timeseriesURL,
+        {
+          instances: [],
+          params: {
+            do_predict: 0,
+            code: code,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Kserve-Host": timeseriesHost,
+          },
+        }
+      )
       .then((data: any) => {
         return data.data;
       })
-      .catch((e) => undefined);
-
-    return inputDataSample.predictions as TimeseriesData[];
+      .catch((e) => {
+        return { predictions: [] };
+      });
+    //const ret = inputDataSample;
+    return ret.predictions as TimeseriesData[];
   },
   getPrediction: async (data: TimeseriesData[]) => {
-    // const ret = await axios({
-    //   method: "get",
-    //   url: timeseriesURL,
-    // })
-    //   .then((data: any) => {
-    //     return data.data;
-    //   })
-    //   .catch((e) => undefined);
-
-    return predictionSample.predictions as PredictionData[];
+    const ret = await axios
+      .post(
+        timeseriesURL,
+        {
+          instances: data,
+          params: {
+            do_predict: 1,
+            periods: 100,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Kserve-Host": timeseriesHost,
+          },
+        }
+      )
+      .then((data: any) => {
+        return data.data;
+      })
+      .catch((e) => {
+        return { predictions: [] };
+      });
+    //const ret = predictionSample;
+    return ret.predictions as PredictionData[];
   },
   getSentiment: async (name: string) => {
-    // const ret = await axios({
-    //   method: "get",
-    //   url: sentimentURL,
-    // })
-    //   .then((data: any) => {
-    //     return data.data;
-    //   })
-    //   .catch((e) => undefined);
-
-    return sentimentalSample.predictions as SentimentalData[];
+    const ret = await axios
+      .post(
+        sentimentURL,
+        {
+          instances: [],
+          params: {
+            search_name: name,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Kserve-Host": sentimentHost,
+          },
+        }
+      )
+      .then((data: any) => {
+        return data.data;
+      })
+      .catch((e) => {
+        return { predictions: [] };
+      });
+    //const ret = sentimentalSample;
+    return ret.predictions as SentimentalData[];
   },
 };

@@ -22,14 +22,18 @@ export type PredictionData = {
   trend: number;
 };
 
+export type TimeseriesDatas = {
+  given: TimeseriesData[];
+  predicted: PredictionData[];
+  status: string;
+};
+
+export type SentimentalDatas = {
+  data: SentimentalData[];
+  status: string;
+};
+
 export type StockData = Stock & {
-  timeseriesDatas: {
-    given: TimeseriesData[];
-    predicted: PredictionData[];
-    status: string;
-  };
-  sentimentalDatas: {
-    data: SentimentalData[];
-    status: string;
-  };
+  timeseriesDatas: TimeseriesDatas;
+  sentimentalDatas: SentimentalDatas;
 };

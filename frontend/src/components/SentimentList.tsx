@@ -1,7 +1,5 @@
-import { List, ListItem, ListItemText, ListItemAvatar } from "@mui/material";
-import CommentIcon from "@mui/icons-material/Comment";
-import IconButton from "@mui/material/IconButton";
-import { SentimentalData } from "@src/store/types";
+import { List, ListItem, ListItemText, CircularProgress } from "@mui/material";
+import { SentimentalDatas, SentimentalData } from "@src/store/types";
 import { css } from "@emotion/react";
 
 function RenderScore(props: { score: number }) {
@@ -23,26 +21,48 @@ function RenderScore(props: { score: number }) {
           : "#e65100"};
       `}
     >
-      {Number(props.score.toFixed(2)) * 100}
+      {(props.score * 100).toFixed()}
     </div>
   );
 }
 
-export default function SentimentList(props: { givenData: SentimentalData[] }) {
+export default function SentimentList(props: {
+  selectedCode: string;
+  givenData: SentimentalDatas;
+}) {
+  const givenData = props.givenData;
   return (
-    <List sx={{ width: "100%", maxWidth: 520, bgcolor: "background.paper" }}>
-      {props.givenData.map((sentiment: SentimentalData) => (
-        <ListItem
-          key={sentiment.title}
-          disableGutters
-          onClick={() => {
-            window.open(sentiment.link, "_blank", "noopener,noreferrer");
-          }}
-        >
-          <ListItemText primary={sentiment.title} />
-          <RenderScore score={sentiment.score} />
-        </ListItem>
-      ))}
-    </List>
+    <div
+      css={css`
+        width: 700px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `}
+    >
+      {givenData.status === "success" ? (
+        <List sx={{ width: "100%", maxWidth: 520, bgcolor: "background.paper" }}>
+          {givenData.data.map((sentiment: SentimentalData) => (
+            <ListItem
+              key={sentiment.title}
+              disableGutters
+              onClick={() => {
+                window.open(sentiment.link, "_blank", "noopener,noreferrer");
+              }}
+            >
+              <ListItemText
+                css={css`
+                  max-width: 460px;
+                `}
+                primary={sentiment.title}
+              />
+              <RenderScore score={sentiment.score} />
+            </ListItem>
+          ))}
+        </List>
+      ) : (
+        <CircularProgress />
+      )}
+    </div>
   );
 }

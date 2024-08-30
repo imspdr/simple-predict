@@ -4,11 +4,12 @@ import kospi200 from "./kospi200.json";
 import { predictAPI } from "./apis";
 
 export class RootStore {
-  private __selectedCode: string | undefined;
+  private __selectedCode: string;
   private __cacheData: StockData[];
   private __kospi200: Stock[];
   constructor() {
     this.__cacheData = [];
+    this.__selectedCode = "000000";
     this.__kospi200 = kospi200;
     makeAutoObservable(this);
   }
@@ -21,16 +22,8 @@ export class RootStore {
   get selectedCode() {
     return this.__selectedCode;
   }
-  set selectedCode(given: string | undefined) {
+  set selectedCode(given: string) {
     this.__selectedCode = given;
-    console.log(given);
-    if (given) {
-      const useCache = this.cacheData.find((stock) => stock.code === given);
-      if (useCache) return;
-      else {
-        this.getNewData(given);
-      }
-    }
   }
   set cacheData(given: StockData[]) {
     this.__cacheData = given;

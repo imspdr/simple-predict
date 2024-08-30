@@ -5,12 +5,12 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TimeseriesChart from "./components/TimeseriesChart";
 import { useRootStore } from "@src/store/RootStoreProvider";
 import SentimentList from "./components/SentimentList";
-import CircularProgress from "@mui/material/CircularProgress";
+import { StockData } from "./store/types";
+import { useCallback } from "react";
 
 function App() {
   const rootStore = useRootStore();
   const selectedData = rootStore.cacheData.find((datas) => datas.code === rootStore.selectedCode);
-  console.log(selectedData);
   return (
     <div
       css={css`
@@ -36,38 +36,43 @@ function App() {
               id: stock.code,
             };
           })}
+          isOptionEqualToValue={(option, value) => {
+            return option.id === value.id;
+          }}
           sx={{ width: 300, height: 60 }}
           renderInput={(params) => <TextField {...params} label="종목" />}
           onChange={(e, v) => {
-            rootStore.selectedCode = v?.id;
+            if (v && v.id) {
+              rootStore.selectedCode = v.id;
+              const useCache = rootStore.cacheData.find((stock) => stock.code === v.id);
+              if (useCache) return;
+              else {
+                rootStore.getNewData(v.id);
+              }
+            }
           }}
         />
-        {selectedData && (
-          <div
-            css={css`
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              gap: 20px;
-            `}
-          >
-            {selectedData.timeseriesDatas.status === "success" ? (
+        <div
+          css={css`
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+          `}
+        >
+          {rootStore.selectedCode && selectedData && (
+            <>
               <TimeseriesChart
-                width={800}
-                height={500}
-                givenData={selectedData.timeseriesDatas.given}
-                predictionData={selectedData.timeseriesDatas.predicted}
+                selectedCode={rootStore.selectedCode}
+                data={selectedData.timeseriesDatas}
               />
-            ) : (
-              <CircularProgress />
-            )}
-            {selectedData.sentimentalDatas.status === "success" ? (
-              <SentimentList givenData={selectedData.sentimentalDatas.data} />
-            ) : (
-              <CircularProgress />
-            )}
-          </div>
-        )}
+              <SentimentList
+                selectedCode={rootStore.selectedCode}
+                givenData={selectedData.sentimentalDatas}
+              />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

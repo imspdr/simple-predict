@@ -15,6 +15,7 @@ spec:
       containers:
         - name: simple-predict-front
           image: konglsh96/kserve_practice:front
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           resources:
@@ -28,5 +29,5 @@ spec:
               value: "31380"
             - name: uri
               value: "$uri"
-            - name: kserve_host
-              value: "$kserve_host"
+            - name: http_kserve_host
+              value: "$http_kserve_host"
