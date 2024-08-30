@@ -8,8 +8,8 @@ frontend:
       cpu: 100m
       memory: 100Mi
   service:
-    ip: 192.168.99.100
+    ip: 192.168.49.2
     port: 31234
 istio:
-  ip: 192.168.99.100
-  port: 31380
+  ip: 192.168.49.2
+  port: 31397

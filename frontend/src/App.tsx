@@ -20,59 +20,53 @@ function App() {
         align-items: center;
       `}
     >
+      <Autocomplete
+        disablePortal
+        options={rootStore.kospi200.map((stock) => {
+          return {
+            label: stock.name,
+            id: stock.code,
+          };
+        })}
+        isOptionEqualToValue={(option, value) => {
+          return option.id === value.id;
+        }}
+        sx={{ width: 300, height: 60 }}
+        renderInput={(params) => <TextField {...params} label="종목" />}
+        onChange={(e, v) => {
+          if (v && v.id) {
+            rootStore.selectedCode = v.id;
+            const useCache = rootStore.cacheData.find((stock) => stock.code === v.id);
+            if (useCache) return;
+            else {
+              rootStore.getNewData(v.id);
+            }
+          }
+        }}
+      />
       <div
         css={css`
           display: flex;
-          flex-direction: column;
-          padding: 30px;
-          width: 1500px;
+          flex-direction: row;
+          align-items: center;
+          gap: 20px;
         `}
       >
-        <Autocomplete
-          disablePortal
-          options={rootStore.kospi200.map((stock) => {
-            return {
-              label: stock.name,
-              id: stock.code,
-            };
-          })}
-          isOptionEqualToValue={(option, value) => {
-            return option.id === value.id;
-          }}
-          sx={{ width: 300, height: 60 }}
-          renderInput={(params) => <TextField {...params} label="종목" />}
-          onChange={(e, v) => {
-            if (v && v.id) {
-              rootStore.selectedCode = v.id;
-              const useCache = rootStore.cacheData.find((stock) => stock.code === v.id);
-              if (useCache) return;
-              else {
-                rootStore.getNewData(v.id);
-              }
-            }
-          }}
-        />
-        <div
-          css={css`
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 20px;
-          `}
-        >
-          {rootStore.selectedCode && selectedData && (
-            <>
-              <TimeseriesChart
-                selectedCode={rootStore.selectedCode}
-                data={selectedData.timeseriesDatas}
-              />
-              <SentimentList
-                selectedCode={rootStore.selectedCode}
-                givenData={selectedData.sentimentalDatas}
-              />
-            </>
-          )}
-        </div>
+        {rootStore.selectedCode && selectedData && (
+          <>
+            <TimeseriesChart
+              width={800}
+              height={500}
+              selectedCode={rootStore.selectedCode}
+              data={selectedData.timeseriesDatas}
+            />
+            <SentimentList
+              width={500}
+              selectedCode={rootStore.selectedCode}
+              givenData={selectedData.sentimentalDatas}
+            />
+          </>
+        )}
       </div>
     </div>
   );

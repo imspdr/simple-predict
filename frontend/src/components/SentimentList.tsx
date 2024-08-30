@@ -27,6 +27,7 @@ function RenderScore(props: { score: number }) {
 }
 
 export default function SentimentList(props: {
+  width: number;
   selectedCode: string;
   givenData: SentimentalDatas;
 }) {
@@ -34,14 +35,14 @@ export default function SentimentList(props: {
   return (
     <div
       css={css`
-        width: 700px;
+        width: ${props.width}px;
         display: flex;
         align-items: center;
         justify-content: center;
       `}
     >
       {givenData.status === "success" ? (
-        <List sx={{ width: "100%", maxWidth: 520, bgcolor: "background.paper" }}>
+        <List sx={{ width: "100%", maxWidth: props.width, bgcolor: "background.paper" }}>
           {givenData.data.map((sentiment: SentimentalData) => (
             <ListItem
               key={sentiment.title}
@@ -52,7 +53,7 @@ export default function SentimentList(props: {
             >
               <ListItemText
                 css={css`
-                  max-width: 460px;
+                  max-width: ${props.width - 60}px;
                 `}
                 primary={sentiment.title}
               />

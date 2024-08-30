@@ -1,2 +1,5 @@
 # simplePredict
-timeseries + sentimental analysis
+
+## 구조
+
+## 

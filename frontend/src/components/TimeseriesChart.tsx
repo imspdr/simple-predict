@@ -4,7 +4,12 @@ import { css } from "@emotion/react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useEffect } from "react";
 
-export default function TimeseriesChart(props: { selectedCode: string; data: TimeseriesDatas }) {
+export default function TimeseriesChart(props: {
+  width: number;
+  height: number;
+  selectedCode: string;
+  data: TimeseriesDatas;
+}) {
   const givenData = props.data.given;
   const predictionData = props.data.predicted;
   const colors = [
@@ -18,8 +23,8 @@ export default function TimeseriesChart(props: { selectedCode: string; data: Tim
   return (
     <div
       css={css`
-        width: 800px;
-        height: 600px;
+        width: ${props.width}px;
+        height: ${props.height}px;
         display: flex;
         align-items: center;
         justify-content: center;
