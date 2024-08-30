@@ -14,19 +14,22 @@ spec:
     spec:
       containers:
         - name: simple-predict-front
-          image: konglsh96/kserve_practice:front
+          image: {{ .Values.frontend.image }}
           imagePullPolicy: Always
           ports:
             - containerPort: 80
           resources:
             limits:
-              memory: "500Mi"
-              cpu: "1000m"
+              cpu: {{ .Values.frontend.resources.limits.cpu }}
+              memory: {{ .Values.frontend.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.frontend.resources.requests.cpu }}
+              memory: {{ .Values.frontend.resources.requests.memory }}
           env:
             - name: ISTIO_IP
-              value: "192.168.99.100"
+              value: "{{ .Values.istio.ip }}"
             - name: ISTIO_PORT
-              value: "31380"
+              value: "{{ .Values.istio.port }}"
             - name: uri
               value: "$uri"
             - name: http_kserve_host

@@ -1,0 +1,15 @@
+frontend:
+  image: konglsh96/kserve_practice:front
+  resources:
+    limits:
+      cpu: 100m
+      memory: 100Mi
+    requests:
+      cpu: 100m
+      memory: 100Mi
+  service:
+    ip: 192.168.99.100
+    port: 31234
+istio:
+  ip: 192.168.99.100
+  port: 31380
