@@ -4,11 +4,12 @@ import inputDataSample from "./inputDataSample.json";
 import predictionSample from "./predictionSample.json";
 import sentimentalSample from "./sentimentalSample.json";
 
+const namespace = "simple-predict";
 const timeseriesURL = "/api/v1/models/custom-prophet:predict";
-const timeseriesHost = "custom-prophet.default.example.com";
+const timeseriesHost = `custom-prophet.${namespace}.example.com`;
 
 const sentimentURL = "/api/v1/models/custom-text-score:predict";
-const sentimentHost = "custom-text-score.default.example.com";
+const sentimentHost = `custom-text-score.${namespace}.example.com`;
 
 export const predictAPI = {
   getInputData: async (code: string) => {

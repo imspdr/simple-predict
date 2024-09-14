@@ -20,6 +20,7 @@ Nginx 및 React로 구성된 프론트엔드와 2개의 Kserve inference service
 
 ```commandline
 $ cd helm
+$ kubectl create ns simple-predict
 $ helm upgrade --install simple-predict simple-predict
 ```
 - kubernetes 환경에 helm chart를 이용하여 배포할 수 있다.

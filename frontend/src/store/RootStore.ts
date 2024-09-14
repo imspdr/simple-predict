@@ -4,29 +4,29 @@ import kospi200 from "./kospi200.json";
 import { predictAPI } from "./apis";
 
 export class RootStore {
-  private __selectedCode: string;
-  private __cacheData: StockData[];
-  private __kospi200: Stock[];
+  private _selectedCode: string;
+  private _cacheData: StockData[];
+  private _kospi200: Stock[];
   constructor() {
-    this.__cacheData = [];
-    this.__selectedCode = "000000";
-    this.__kospi200 = kospi200;
+    this._cacheData = [];
+    this._selectedCode = "000000";
+    this._kospi200 = kospi200;
     makeAutoObservable(this);
   }
   get cacheData() {
-    return this.__cacheData;
+    return this._cacheData;
   }
   get kospi200() {
-    return this.__kospi200;
+    return this._kospi200;
   }
   get selectedCode() {
-    return this.__selectedCode;
+    return this._selectedCode;
   }
   set selectedCode(given: string) {
-    this.__selectedCode = given;
+    this._selectedCode = given;
   }
   set cacheData(given: StockData[]) {
-    this.__cacheData = given;
+    this._cacheData = given;
   }
   appendCache = (given: StockData) => {
     this.cacheData = [given, ...this.cacheData];
@@ -42,7 +42,7 @@ export class RootStore {
   };
   emptyCache = () => {
     runInAction(() => {
-      this.__cacheData = [];
+      this._cacheData = [];
     });
   };
 

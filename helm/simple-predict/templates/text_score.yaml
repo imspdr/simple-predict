@@ -2,6 +2,7 @@ apiVersion: serving.kserve.io/v1beta1
 kind: InferenceService
 metadata:
   name: custom-text-score
+  namespace: {{ .Values.namespace }}
 spec:
   predictor:
     containers:
