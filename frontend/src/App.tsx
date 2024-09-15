@@ -5,8 +5,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TimeseriesChart from "./components/TimeseriesChart";
 import { useRootStore } from "@src/store/RootStoreProvider";
 import SentimentList from "./components/SentimentList";
-import { StockData } from "./store/types";
-import { useCallback } from "react";
 
 function App() {
   const rootStore = useRootStore();

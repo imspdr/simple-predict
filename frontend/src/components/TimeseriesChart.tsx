@@ -1,8 +1,7 @@
-import { ResponsiveLine, Serie } from "@nivo/line";
+import { ResponsiveLine } from "@nivo/line";
 import { TimeseriesDatas, PredictionData, TimeseriesData } from "@src/store/types";
 import { css } from "@emotion/react";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useEffect } from "react";
 
 export default function TimeseriesChart(props: {
   width: number;
