@@ -37,7 +37,6 @@ $ helm upgrade --install simple-predict simple-predict
   - 이미지는 각 폴더의 build_push.sh 혹은 build_docker.sh script를 이용해 저장한다.
 - istio, minikube 버전에 따라 helm chart values.yaml 수정이 필요하다
   - 현재 작성된 values는 테스트 버전 기준
-- namespace는 default를 사용하도록 구현되어있다. 변경시 /frontend/src/store/apis.ts의 Host 관련 정보를 변경해야한다.
 
 # Example
 
