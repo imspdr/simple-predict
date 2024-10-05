@@ -91,7 +91,7 @@ class CustomProphet(kserve.Model):
             try:
                 df = pd.DataFrame(given_data)
                 model.fit(df)
-                future = model.make_future_dataframe(periods=periods, freq=None, include_history=False)
+                future = model.make_future_dataframe(periods=periods, include_history=False)
                 forecast = model.predict(future)
                 predictions = []
                 for line in forecast.iterrows():
@@ -108,6 +108,7 @@ class CustomProphet(kserve.Model):
                 return json.loads(json_result)
 
             except Exception as e:
+                logging.info(f"prediction failed {e}")
                 return {
                     "predictions": []
                 }

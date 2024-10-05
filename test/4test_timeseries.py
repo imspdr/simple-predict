@@ -31,6 +31,6 @@ print(df)
 model = Prophet()
 model.fit(df)
 
-future = model.make_future_dataframe(periods=20, freq=None, include_history=False)
+future = model.make_future_dataframe(periods=20, include_history=False)
 forecast = model.predict(future)
 print(forecast)
