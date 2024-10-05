@@ -7,7 +7,7 @@ spec:
   predictor:
     containers:
       - name: kserve-container
-        image: konglsh96/kserve_practice:textscore
+        image: konglsh96/simple-predict:textscore
         resources:
           limits:
             cpu: 1

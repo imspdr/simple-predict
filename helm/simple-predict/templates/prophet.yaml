@@ -7,7 +7,7 @@ spec:
   predictor:
     containers:
       - name: kserve-container
-        image: konglsh96/kserve_practice:prophet
+        image: konglsh96/simple-predict:prophet
         resources:
           limits:
             cpu: 1

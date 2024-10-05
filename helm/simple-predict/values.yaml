@@ -1,6 +1,6 @@
 namespace: simple-predict
 frontend:
-  image: konglsh96/kserve_practice:front
+  image: konglsh96/simple-predict:front
   resources:
     limits:
       cpu: 100m
