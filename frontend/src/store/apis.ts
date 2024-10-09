@@ -4,7 +4,7 @@ import inputDataSample from "./inputDataSample.json";
 import predictionSample from "./predictionSample.json";
 import sentimentalSample from "./sentimentalSample.json";
 
-const namespace = "simple-predict";
+const namespace = "TOENVNAMESPACE";
 const timeseriesURL = "/api/v1/models/custom-prophet:predict";
 const timeseriesHost = `custom-prophet.${namespace}.example.com`;
 
