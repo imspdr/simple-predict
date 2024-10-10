@@ -1,4 +1,4 @@
-# simplePredict
+# simple-predict
 
 ## Structure
 
