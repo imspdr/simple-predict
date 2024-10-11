@@ -11,8 +11,8 @@ spec:
         imagePullPolicy: Always
         resources:
           limits:
-            cpu: 1
-            memory: 500Mi
+            cpu: {{ .Values.prophet.resources.limits.cpu }}
+            memory: {{ .Values.prophet.resources.limits.memory }}
           requests:
-            cpu: 1
-            memory: 500Mi
+            cpu: {{ .Values.prophet.resources.requests.cpu }}
+            memory: {{ .Values.prophet.resources.requests.memory }}

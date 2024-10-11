@@ -11,8 +11,8 @@ spec:
         imagePullPolicy: Always
         resources:
           limits:
-            cpu: 1
-            memory: 1000Mi
+            cpu: {{ .Values.textscore.resources.limits.cpu }}
+            memory: {{ .Values.textscore.resources.limits.memory }}
           requests:
-            cpu: 1
-            memory: 1000Mi
+            cpu: {{ .Values.textscore.resources.requests.cpu }}
+            memory: {{ .Values.textscore.resources.requests.memory }}

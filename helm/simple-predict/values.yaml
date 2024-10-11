@@ -11,6 +11,22 @@ frontend:
   service:
     ip: 192.168.49.2
     port: 31234
+prophet:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 500Mi
+    requests:
+      cpu: 200m
+      memory: 500Mi
+textscore:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 1000Mi
+    requests:
+      cpu: 200m
+      memory: 1000Mi
 istio:
   ip: 192.168.49.2
   port: 31397
