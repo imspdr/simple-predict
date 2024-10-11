@@ -6,7 +6,9 @@
 
 ## Description
 
-Kserve의 predictor를 이용한 serverless program. 
+네이버 증권 정보를 크롤링하여 KOSPI 상위 100개 종목의 향후 주가를 meta의 Prophet 모델을 이용해 예측하는 시스템.
+
+추가적으로 hugging face의 sentimental analysis transformer 모델을 이용해 각 종목명과 관련된 네이버 기사 제목을 크롤링하여 기사 제목의 긍정/부정 정도를 평가한다.
 
 Nginx 및 React로 구성된 프론트엔드와 2개의 Kserve inference service crd로 구성된다.
 
